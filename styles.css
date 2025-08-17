@@ -34,6 +34,41 @@ body {
   border-radius: var(--border-radius);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
 }
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.check-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.check-container .check-input{
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.check-container .check-input:focus{
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-color);
+}
+.check-container .check-btn{
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: none;
+  animation: all 0.3s ease;
+}
+.check-container .check-btn:hover{
+  transform: translateY(-2px);
+}
+
 .result-content{
   display: flex;
   width: 100%;
