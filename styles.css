@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+:root {
+  --primary-color: #212121;
+  --secondary-color: #303030;
+  --accent-color: #0f0f0f;
+  --text-color: #fffdee;
+  --border-radius: 20px;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 15px;
+  color: var(--text-color);
+  background-color: var(--primary-color);
+}
+/* main container */
+.container {
+  position: relative;
+  overflow: hidden;
+  width: 900px;
+  padding: 32px;
+  border-radius: 23px;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px, rgba(0, 0, 0, 0.22) 0px 6px 6px;
+}
+.result-content{
+  display: flex;
+  width: 100%;
+}
+
+.result-content .card{
+  background: #fffdee;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin: 10px;
+  color: var(--primary-color);
+}
+.result-content .card p{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px ;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
