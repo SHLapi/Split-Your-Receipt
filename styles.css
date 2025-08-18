@@ -91,7 +91,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   border-radius: 15px;
   border: 1px solid ;
   transition: all 0.4s ease;
-  width: 60%;
+  width: 350px;
 }
 .result-content .card p{
   display: flex;
