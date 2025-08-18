@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 :root {
-  --primary-color: #212121;
-  --secondary-color: #303030;
-  --accent-color: #0f0f0f;
+  --primary-color: #0c0c0c;
+  --secondary-color: #242723;
+  --accent-color: #18241e;
   --text-color: #fffdee;
   --border-radius: 20px;
 }
@@ -27,7 +27,7 @@ body {
 .container {
   position: relative;
   overflow: hidden;
-  width: 900px;
+  width: 600px;
   padding: 32px;
   border-radius: 23px;
   background-color: var(--secondary-color);
@@ -37,14 +37,19 @@ body {
 .header {
   text-align: center;
   margin-bottom: 20px;
+
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.check-container{
+.form-container{
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.check-container .check-input{
+.form-container .check-input{
   width: 100%;
   padding: 10px;
   border-radius: var(--border-radius);
@@ -54,37 +59,50 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
 }
-.check-container .check-input:focus{
+.form-container .check-input:focus{
   outline: none;
   box-shadow: 0 0 5px var(--primary-color);
 }
-.check-container .check-btn{
+.form-container .check-btn{
   width: 100%;
   padding: 10px;
   border-radius: var(--border-radius);
   border: none;
-  animation: all 0.3s ease;
+  transition: all 0.3s ease;
 }
-.check-container .check-btn:hover{
+.form-container .check-btn:hover{
   transform: translateY(-2px);
 }
 
 .result-content{
   display: flex;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 .result-content .card{
   background: #fffdee;
-  border-radius: var(--border-radius);
-  padding: 20px;
-  margin: 10px;
   color: var(--primary-color);
+  padding: 20px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  border: 1px solid ;
+  transition: all 0.4s ease;
+  width: 60%;
 }
 .result-content .card p{
   display: flex;
   justify-content: space-between;
-  margin: 10px ;
+  margin: 5px ;
   font-size: 1rem;
   margin-bottom: 10px;
+}
+.result-content .card .number-of-people{
+  color: var(--text-color);
+  background-color: #303030;
+  border-radius: 50px;
+  padding: 0px 10px 1px 10px;
 }
