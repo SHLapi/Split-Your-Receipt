@@ -5,7 +5,7 @@ const Result = document.querySelector(".result-content");
 const AddItemBtn = document.querySelector(".add-item-btn");
 const AddedItemContainer = document.querySelector(".added-item-container");
 
-// Event listener to add a new item
+// add a new item
 AddItemBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -26,7 +26,7 @@ AddItemBtn.addEventListener("click", (e) => {
   AddedItemContainer.appendChild(newItem);
 });
 
-
+//Remove button functionality
 CheckForm.addEventListener("click", (e) => {
     const removeBtn = e.target.closest(".remove-item-btn");
     if (removeBtn) {
@@ -39,7 +39,7 @@ CheckForm.addEventListener("click", (e) => {
 });
 
 
-const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage) => {
+const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage, VatPerPerson) => {
   Result.innerHTML = ""; // Clear previous results
 
   
@@ -60,6 +60,7 @@ const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage) 
       <hr/>
       <p class="result-text">Subtotal: <span>${totalAmount.toFixed(2)}</span></p>
       <p class="result-text">VAT (${vatPercentage}%): <span>${vatAmount.toFixed(2)}</span></p>
+      <p class="result-text">VAT per Person: <span>${VatPerPerson.toFixed(2)}</span></p>
       <hr/>
       <p class="result-text" style="font-size: 1.1rem;"><b>Total:</b> <span><b>${totalWithVat.toFixed(2)}</b></span></p>
     </div>
@@ -70,7 +71,6 @@ const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage) 
 Btn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  
   const allItemForms = document.querySelectorAll(".check-form .form-container");
   let items = [];
   let totalAmount = 0;
@@ -119,8 +119,13 @@ Btn.addEventListener("click", (e) => {
   // Calculate VAT and the final total
   const vatPercentage = parseFloat(Vat.value) || 0;
   const vatAmount = (totalAmount * vatPercentage) / 100;
+  const VatPerPerson = vatAmount / items.reduce((sum, item) => sum + item.people, 0);
+  items.forEach(item => {
+    item.perPerson += VatPerPerson; // Add VAT per person to each item's per person cost
+  }
+  );
   const totalWithVat = totalAmount + vatAmount;
 
   // Create and display the results card
-  createCard(items, totalAmount, vatAmount, totalWithVat, vatPercentage);
+  createCard(items, totalAmount, vatAmount, totalWithVat, vatPercentage, VatPerPerson);
 });
