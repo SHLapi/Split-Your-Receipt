@@ -15,7 +15,7 @@ AddItemBtn.addEventListener("click", (e) => {
   
   newItem.innerHTML = `
     <hr/>
-    <input type="text" class="check-input" placeholder="Enter another meal" required/>
+    <input type="text" class="check-input" placeholder="Enter another meal" required autofocus/>
     <input type="number" class="check-input" placeholder="Total Amount" required/>
     <input type="number" class="check-input" placeholder="Number of People" required/>
     <button class="remove-item-btn">
@@ -39,7 +39,7 @@ CheckForm.addEventListener("click", (e) => {
 });
 
 // Function to create and display the card with results
-const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage, VatPerPerson) => {
+const createCard = (items, totalAmount, totalWithVat, vatPercentage, vatTotalAmount) => {
   Result.innerHTML = ""; // Clear previous results
 
   //create HTML for each item we added
@@ -49,6 +49,7 @@ const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage, 
       <p class="result-text">Amount: <span>${item.amount.toFixed(2)}</span></p>
       <p class="result-text">Split by: <span>${item.people}</span></p>
       <p class="result-text">Per Person: <span>${item.perPerson.toFixed(2)}</span></p>
+      <p class="result-text">VAT per Person: <span>${item.vatPerPerson.toFixed(2)}</span></p>
     </div>
   `).join('<hr style="border-style: dashed; border-color: #ccc; margin: 5px 0;">');
 
@@ -59,8 +60,8 @@ const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage, 
       ${itemsHtml}
       <hr/>
       <p class="result-text">Subtotal: <span>${totalAmount.toFixed(2)}</span></p>
-      <p class="result-text">VAT (${vatPercentage}%): <span>${vatAmount.toFixed(2)}</span></p>
-      <p class="result-text">VAT per Person: <span>${VatPerPerson.toFixed(2)}</span></p>
+      <p class="result-text">VAT (${vatPercentage}%): <span>${vatTotalAmount.toFixed(2)}</span></p>
+      
       <hr/>
       <p class="result-text" style="font-size: 1.1rem;"><b>Total:</b> <span><b>${totalWithVat.toFixed(2)}</b></span></p>
     </div>
@@ -71,14 +72,15 @@ const createCard = (items, totalAmount, vatAmount, totalWithVat, vatPercentage, 
 Btn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  const allItemForms = document.querySelectorAll(".check-form .form-container");
+  const allItemForms = document.querySelectorAll(".check-form .form-container");// Select all forms created
   let items = []; // Array to hold item details
   let totalAmount = 0; //initial total amount
   let hasErrors = false; // Flag to check for input errors
+  const vatPercentage = parseFloat(Vat.value) || 0; // Get VAT percentage from input, default to 0 if not provided
 
   // Loop through each item form to gather data
   allItemForms.forEach(formContainer => {
-    const mealInput = formContainer.querySelector('input[placeholder*="meal"]');
+    const mealInput = formContainer.querySelector('input[placeholder*="meal"]'); //Get meal input
     const amountInput = formContainer.querySelector('input[placeholder="Total Amount"]');
     const peopleInput = formContainer.querySelector('input[placeholder="Number of People"]');
     // Check if the inputs not empty
@@ -100,7 +102,9 @@ Btn.addEventListener("click", (e) => {
       }
       return; 
     }
-
+  // Calculate VAT per person
+  const itemVat = (amount * vatPercentage) / 100;
+  const vatPerPerson = itemVat / people;
     // Add the item's amount to the total and store its details
     totalAmount += amount;
     items.push({
@@ -108,6 +112,7 @@ Btn.addEventListener("click", (e) => {
       amount: amount,
       people: people,
       perPerson: amount / people,
+      vatPerPerson: vatPerPerson,
     });
   });
   // Check if there are any errors or if no items were added 
@@ -117,15 +122,9 @@ Btn.addEventListener("click", (e) => {
   }
 
   // Calculate VAT and the final total
-  const vatPercentage = parseFloat(Vat.value) || 0;
-  const vatAmount = (totalAmount * vatPercentage) / 100;
-  const VatPerPerson = vatAmount / items.reduce((sum, item) => sum + item.people, 0);
-  items.forEach(item => {
-    item.perPerson += VatPerPerson; // Add VAT per person to each item's per person cost 
-  }
-  );
-  const totalWithVat = totalAmount + vatAmount; // Calculate the total amount including VAT
+  const vatTotalAmount = (totalAmount * vatPercentage) / 100; // Calculate total VAT amount
+  const totalWithVat = totalAmount + vatTotalAmount; // Calculate the total amount including VAT
 
   // Create and display the results card
-  createCard(items, totalAmount, vatAmount, totalWithVat, vatPercentage, VatPerPerson);
+  createCard(items, totalAmount, totalWithVat, vatPercentage, vatTotalAmount);
 });
