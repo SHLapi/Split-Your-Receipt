@@ -39,6 +39,9 @@ Calculate: Click the Calculate button to see the final, detailed receipt summary
 
 ## File Structure 📂
 .
+
 ├── index.html      // The main HTML structure
+
 ├── styles.css      // All CSS styles for the application
+
 └── app.js          // The core JavaScript logic 
