@@ -1,5 +1,5 @@
 
-Receipt Splitter 🧾
+## Receipt Splitter 🧾
 A simple, clean, and intuitive web application to split a bill among multiple people. This tool is perfect for dinners with friends or any situation where you need to divide costs fairly. It allows you to add multiple items, specify a different number of people for each item, and calculate the total with an optional VAT percentage.
 
 ## Features ✨
